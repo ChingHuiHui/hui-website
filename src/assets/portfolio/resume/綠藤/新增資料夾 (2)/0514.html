@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<link rel="stylesheet" href="0514.css">
+    <script src="jquery-1.10.2.min.js" ></script>
+    <script src="jquery.easing.1.3.js"></script></head>
+<body>
+<div id=subContainer>
+    <nav id="mainNavigation">
+    <ul>
+        <li class="nav_search"><a href="#"><i class="fa fa-search"></i>
+            <span>Search</span>
+        </a></li>
+                <li class="nav_bookmark"><a href="#"><i class="fa fa-bookmark"></i>
+            <span>Bookmark</span>
+        </a></li>
+                <li class="nav_tags"><a href="#"><i class="fa fa-tags"></i>
+            <span>Tags</span>
+        </a></li>
+                <li class="nav_heart"><a href="#"><i class="fa fa-heart"></i>
+            <span>Heart</span>
+        </a></li>
+                <li class="nav_comment"><a href="#"><i class="fa fa-comment"></i>
+            <span>Comment</span>
+        </a></li>
+                <li class="nav_gear separate top"><a href="#"><i class="fa fa-cog"></i>
+            <span>Setting</span>
+        </a></li>
+        </ul>
+        <p class="mainNavigation_trigger"><a><i class="fa fa-bars"></i></a></p>
+    </nav>
+    
+    
+    </div>
+<script>
+   
+   ;(function (d, $) {
+
+  var jQdm_slideMenu;
+
+  jQdm_slideMenu = function(){
+
+    // 初始設定
+    var prop = {
+    
+    	subContainer: '#subContainer',
+    	mainNavigation_trigger: '.mainNavigation_trigger',
+    	mainNavigation_appear: '.appeared'
+    }
+
+    function init(){
+
+
+
+      // 滑動選單的開閉按鈕設定
+    	$(prop.mainNavigation_trigger).find('a').on('click', function(){
+    		$(prop.subContainer).toggleClass(replaceString(prop.mainNavigation_appear));
+    	});
+
+	  }
+
+		// 字串取代處理
+    function replaceString(_str, _bf, _af, _flg){
+      var _reg = new RegExp(_bf || '[\\.#]', _flg || '');
+      return _str ? _str.replace(_reg, _af || '') : false;
+    }
+
+    init();
+
+  };
+
+  jQdm_slideMenu();
+
+})(document, jQuery);
+    </script>
+    </body>
+</html>
