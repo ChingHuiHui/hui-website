@@ -265,7 +265,7 @@ export default {
   }
 
   .site-name {
-    @apply text-9xl font-bold text-transparent text-center;
+    @apply text-8xl md:text-9xl text-transparent text-center;
     @apply relative pointer-events-none font-h1;
 
     -webkit-text-stroke-width: 2px;
