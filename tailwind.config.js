@@ -32,7 +32,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        // sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        'body': ['Noto Sans TC', 'Sans-serif'],
+        'h1': ['Fjalla One', 'Sans-serif']
       },
       minWidth: {
         '0': '0',

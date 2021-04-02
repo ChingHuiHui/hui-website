@@ -266,9 +266,8 @@ export default {
 
   .site-name {
     @apply text-9xl font-bold text-transparent text-center;
-    @apply relative pointer-events-none;
+    @apply relative pointer-events-none font-h1;
 
-    font-family: 'Squada One', cursive;
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: #000;
 
