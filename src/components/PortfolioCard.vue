@@ -2,6 +2,8 @@
   <div
     class="bg-white p-4 shadow-md transition ease-in duration-300 flex flex-col"
     :class="move && 'transform -translate-x-1	-translate-y-1'"
+    @mouseover="move = true"
+    @mouseleave="move = false"
   >
     <div
       class="relative w-full mb-2"
@@ -39,7 +41,7 @@
       </div>
     </div>
     <p class="text-md mb-2">
-      PROJECT {{ '0' + (+itemIndex + 1) }} | {{ itemData.title }}
+      PRJECT {{ '0' + (+itemIndex + 1) }} | {{ itemData.title }}
     </p>
     <div class="flex">
       <div class="flex-1 mr-1">

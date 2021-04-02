@@ -1,106 +1,61 @@
 <template>
-  <div class="hero-image">
-    <div class="bg-img" :class="{ 'bg-img': time >= 3 }" />
-    <a
-      :class="['site-name', { 'light-up': time >= 3 }]"
-      :style="{ '-webkit-text-stroke-color': time >= 3 ? 'white' : 'black' }"
-    >
+  <section class="hero-section" :class="{ 'is-time-out': timeOut }">
+    <div class="hero-img" />
+    <a class="site-name">
       HUIHUI
     </a>
-    <nav class="z-10 w-8/12 md:w-4/12 lg:w-2/12">
-      <ul class="flex justify-between">
-        <li>
-          <a href="https://github.com/ChingHuiHui" target="_blank">
-            <i class="fab fa-github cursor-pointer text-3xl text-white" />
-          </a>
-        </li>
-        <li>
-          <a href="mailto:sunny70624@gmail.com" target="_blank">
-            <i class="fas fa-envelope cursor-pointer text-3xl text-white" />
-          </a>
-        </li>
-        <li>
-          <a href="https://codepen.io/ddbrtzlg/collections/" target="_blank">
-            <i class="fab fa-codepen cursor-pointer text-3xl text-white" />
-          </a>
-        </li>
-
-        <li>
-          <a href="https://www.facebook.com/sunny60920" target="_blank">
-            <i class="fab fa-facebook cursor-pointer text-3xl text-white" />
-          </a>
-        </li>
-        <li>
-          <a href="https://www.instagram.com/sunnyhui_0126/" target="_blank">
-            <i class="fab fa-instagram cursor-pointer text-3xl text-white" />
-          </a>
-        </li>
-      </ul>
+    <nav>
+      <div class="flex justify-center">
+        <ul class="flex justify-between">
+          <li v-for="link in links" :key="link.id" class="px-4 py-3">
+            <a :href="link.url" target="_blank">
+              <i :class="`fab fa-${link.name}`" />
+            </a>
+          </li>
+        </ul>
+      </div>
     </nav>
-  </div>
-  <section
-    ref="portfolio"
-    class="bg-gray-100 flex flex-col items-center pt-4 pb-8 relative"
-  >
-    <h2
-      :style="[
-        '-webkit-text-stroke-width: 2px',
-        { '-webkit-text-stroke-color': 'white' },
-      ]"
-      class="lg:text-9xl md:text-8xl text-6xl self-start text-center font-bold pointer-events-none bg-red-500 lg:my-10 lg:w-auto w-full my-5 pr-1 py-2"
-    >
-      Portfolio
-    </h2>
-    <div class="grid lg:grid-cols-2 gap-2 w-10/12">
-      <portfolio-card
-        v-for="(item, index) in data"
-        :key="item"
-        :itemData="item"
-        :itemIndex="index"
-      ></portfolio-card>
+  </section>
+  <section ref="portfolio" class="portfolio-section">
+    <div class="container">
+      <h2>
+        <span>
+          Portfolio
+        </span>
+      </h2>
+      <div class="grid lg:grid-cols-2 gap-2">
+        <portfolio-card
+          v-for="(item, index) in data"
+          :key="`portfolio-${index}`"
+          :itemData="item"
+          :itemIndex="index"
+        />
+      </div>
     </div>
   </section>
-  <footer class="flex justify-center bg-gray-400 pt-5 pb-2 border-t-10">
-    <div
-      class="w-10/12 flex lg:flex-row flex-col justify-between lg:items-center"
-    >
-      <nav class="z-10 lg:w-2/12 w-4/12 lg:mb-0 mb-2">
-        <ul class="flex justify-between">
-          <li>
-            <a href="https://github.com/ChingHuiHui" target="_blank">
-              <i class="fab fa-github cursor-pointer text-xl text-white" />
-            </a>
-          </li>
-          <li>
-            <a href="mailto:sunny70624@gmail.com" target="_blank">
-              <i class="fas fa-envelope cursor-pointer text-xl text-white" />
-            </a>
-          </li>
-          <li>
-            <a href="https://codepen.io/ddbrtzlg/collections/" target="_blank">
-              <i class="fab fa-codepen cursor-pointer text-xl text-white" />
-            </a>
-          </li>
-
-          <li>
-            <a href="https://www.facebook.com/sunny60920" target="_blank">
-              <i class="fab fa-facebook cursor-pointer text-xl text-white" />
-            </a>
-          </li>
-          <li>
-            <a href="https://www.instagram.com/sunnyhui_0126/" target="_blank">
-              <i class="fab fa-instagram cursor-pointer text-xl text-white" />
+  <footer>
+    <div class="container">
+      <nav>
+        <ul class="flex justify-center">
+          <li v-for="link in links" :key="link.id">
+            <a :href="link.url" target="_blank">
+              <i :class="`fab fa-${link.name}`" />
             </a>
           </li>
         </ul>
       </nav>
-      <p class="text-sm text-gray-800">Copyright © 2020 Chang Ching Hui</p>
+      <p class="text-sm text-gray-800 text-center">
+        Copyright © 2020 Chang Ching Hui
+      </p>
     </div>
   </footer>
 </template>
 
 <script>
 import PortfolioCard from './components/PortfolioCard.vue';
+
+const LOADING_TIME = 3;
+const STAY_TIME = 2;
 
 export default {
   name: 'App',
@@ -109,6 +64,26 @@ export default {
   },
   data() {
     return {
+      links: [
+        { id: '1', name: 'github', url: 'https://github.com/ChingHuiHui' },
+        {
+          id: '2',
+          name: 'codepen',
+          url: 'https://codepen.io/ddbrtzlg/collections/',
+        },
+        { id: '3', name: 'google', url: 'mailto:sunny70624@gmail.com' },
+
+        {
+          id: '4',
+          name: 'facebook',
+          url: 'https://www.facebook.com/sunny60920',
+        },
+        {
+          id: '5',
+          name: 'instagram',
+          url: 'https://www.instagram.com/sunnyhui_0126',
+        },
+      ],
       data: [
         {
           title: '專題 - 地樺股份有限公司 ( 產學合作 )',
@@ -252,6 +227,11 @@ export default {
       timer: null,
     };
   },
+  computed: {
+    timeOut() {
+      return this.time >= LOADING_TIME;
+    },
+  },
   created() {
     this.setTime();
   },
@@ -264,7 +244,7 @@ export default {
   },
   watch: {
     time() {
-      if (this.time >= 5) {
+      if (this.time >= LOADING_TIME + STAY_TIME) {
         window.scrollTo(0, this.$refs.portfolio.getBoundingClientRect().top);
         clearInterval(this.timer);
       }
@@ -273,46 +253,93 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.hero-image {
-  @apply h-screen bg-gray-200 flex flex-col justify-center items-center relative;
-}
+<style lang="scss" scoped>
+.hero-section {
+  @apply bg-gray-200 flex flex-col justify-center items-center relative;
 
-.bg-img {
-  @apply absolute inset-0 opacity-0 transition ease-in duration-700;
+  min-height: 100vh;
 
-  background-image: url('./assets/profile2.jpg');
-  background-position: 50% 80%;
-  opacity: 1;
-  filter: brightness(50%);
-}
-.site-name {
-  font-family: 'Squada One', cursive;
-  font-size: 20vw;
-  text-align: center;
-  position: relative;
-  font-weight: bold;
-  color: transparent;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: #000;
-  pointer-events: none;
+  .hero-img {
+    @apply absolute inset-0 opacity-0;
+    @apply transition ease-in duration-700;
+  }
 
-  &::before {
-    content: 'HUIHUI';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0%;
-    overflow: hidden;
-    transition: width 275ms ease;
-    color: #f73b3b;
-    animation: fill-the-color 3s linear;
-    animation-fill-mode: forwards;
+  .site-name {
+    @apply text-9xl font-bold text-transparent text-center;
+    @apply relative pointer-events-none;
+
+    font-family: 'Squada One', cursive;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #000;
+
+    &::before {
+      @apply absolute top-0 left-0 w-0 overflow-hidden overflow-hidden;
+      @apply text-primary transition-all duration-300;
+
+      content: 'HUIHUI';
+      animation: fill-the-color 3s linear;
+      animation-fill-mode: forwards;
+    }
+  }
+
+  &.is-time-out {
+    .hero-img {
+      @apply opacity-100;
+
+      background-image: url('./assets/profile2.jpg');
+      background-position: 50% 80%;
+      filter: brightness(50%);
+    }
+
+    .site-name {
+      -webkit-text-stroke-color: white;
+    }
+
+    nav ul {
+      @apply bg-primary;
+    }
   }
 }
 
-.site-name.light-up::before {
-  color: transparent;
+nav {
+  @apply z-10 w-full transition-all duration-300 mt-10;
+
+  ul li {
+    @apply cursor-pointer text-3xl text-white;
+  }
+}
+
+section.portfolio-section {
+  @apply bg-gray-100 flex flex-col items-center pt-4 pb-8 relative;
+
+  h2 {
+    @apply flex items-center;
+    @apply pointer-events-none w-full my-5 lg:my-10 lg:w-auto;
+    @apply text-secondary text-center font-bold text-4xl md:text-6xl;
+
+    > span {
+      @apply mx-2;
+    }
+
+    &::before,
+    &::after {
+      @apply bg-secondary h-1 flex-1;
+
+      content: '';
+    }
+  }
+}
+
+footer {
+  @apply flex justify-center bg-primary-light pt-5 pb-2;
+
+  nav {
+    @apply mt-0 mb-3;
+
+    ul {
+      @apply space-x-4;
+    }
+  }
 }
 
 @keyframes fill-the-color {
