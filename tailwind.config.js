@@ -1,5 +1,3 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
-
 module.exports = {
   theme: {
     extend: {
@@ -15,5 +13,11 @@ module.exports = {
         'full': '100%',
        }
     }
-  }
-}
+  },
+  purge: {
+    enabled: process.env.NODE_ENV === 'production',
+    content: [
+      'assets/css/**/*.css',
+      'components/**/*.vue',
+    ],
+  },}
