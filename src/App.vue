@@ -1,9 +1,15 @@
 <template>
-  <section class="hero-section" :class="{ 'is-time-out': timeOut }">
+  <section
+    class="hero-section"
+    @click="isShow = !isShow"
+    :class="{ 'is-time-out': isTimeOut, 'is-show': isShow }"
+  >
     <div class="hero-img" />
-    <a class="site-name">
+    <div class="hero-img-second" />
+
+    <h1 class="site-name">
       HUIHUI
-    </a>
+    </h1>
     <nav>
       <div class="flex justify-center">
         <ul class="flex justify-between">
@@ -55,7 +61,7 @@
 import PortfolioCard from './components/PortfolioCard.vue';
 
 const LOADING_TIME = 3;
-const STAY_TIME = 2;
+// const STAY_TIME = 2;
 
 export default {
   name: 'App',
@@ -64,6 +70,7 @@ export default {
   },
   data() {
     return {
+      isShow: false,
       links: [
         { id: '1', name: 'github', url: 'https://github.com/ChingHuiHui' },
         {
@@ -228,7 +235,7 @@ export default {
     };
   },
   computed: {
-    timeOut() {
+    isTimeOut() {
       return this.time >= LOADING_TIME;
     },
   },
@@ -242,26 +249,38 @@ export default {
       }, 10);
     },
   },
-  watch: {
-    time() {
-      if (this.time >= LOADING_TIME + STAY_TIME) {
-        window.scrollTo(0, this.$refs.portfolio.getBoundingClientRect().top);
-        clearInterval(this.timer);
-      }
-    },
-  },
+  // watch: {
+  //   time() {
+  //     if (this.time >= LOADING_TIME + STAY_TIME) {
+  //       window.scrollTo(0, this.$refs.portfolio.getBoundingClientRect().top);
+  //       clearInterval(this.timer);
+  //     }
+  //   },
+  // },
 };
 </script>
 
 <style lang="scss" scoped>
 .hero-section {
-  @apply bg-gray-200 flex flex-col justify-center items-center relative;
+  @apply bg-gray-200 flex flex-col justify-center items-center relative pointer-events-none;
 
   min-height: 100vh;
 
+  .hero-img,
+  .hero-img-second {
+    @apply absolute bg-center bg-cover;
+    @apply transition-all duration-700;
+  }
+
   .hero-img {
-    @apply absolute inset-0 opacity-0;
-    @apply transition ease-in duration-700;
+    @apply w-full inset-0 opacity-0;
+  }
+
+  .hero-img-second {
+    @apply absolute right-0 top-0 bottom-0 w-1/2 opacity-100;
+    @apply transform translate-x-full;
+
+    background-image: url('./assets/profile.jpeg');
   }
 
   .site-name {
@@ -281,12 +300,23 @@ export default {
     }
   }
 
-  &.is-time-out {
+  &.is-show {
     .hero-img {
-      @apply opacity-100;
+      @apply opacity-80 w-1/2 md:h-full;
+    }
+
+    .hero-img-second {
+      @apply translate-x-0;
+    }
+  }
+
+  &.is-time-out {
+    @apply pointer-events-auto cursor-pointer;
+
+    .hero-img {
+      @apply opacity-100 bg-center;
 
       background-image: url('./assets/profile2.jpg');
-      background-position: 50% 80%;
       filter: brightness(50%);
     }
 
